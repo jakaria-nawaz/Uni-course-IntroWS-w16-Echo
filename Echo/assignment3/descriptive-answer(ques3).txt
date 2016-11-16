@@ -1,0 +1,18 @@
+=================================================================================================================================
+In this solution we have followed what was explained in the video of "DNS address resolution" and mixed it with the routing table algorithm that we learnt in previous weeks.
+Therefore, we are assuming that (Router1), which is resposible for the network that the client is connected to, to be the ISP. 
+The ISP is going to send all the requests and receive them until it receives the final correct response then sends it to the client. 
+Moreover, we are assuming (Router2) and (Router3) to be DNS servers.
+We are also assuming that "webscienceexampledomain" and "com" is in a zone (Zone2) with the "subdomain", and that zone is considered to be handled by (Router2); since (Router2) is responsible for both of them according to the routing tables.
+Also, there's another assumed zone (Zone1 that includes the "root server" and the ".com" domain which is handled by (Router3). We added ".com" in the zone to make it overlap with the whole scenario. Since the question also hasn't given us an IP for the .com domain.
+
+****for clarification please find the graph of the zones****
+
+As client 67.4.5.2 wants to resolve the domain "subdomain.webscienceexampledomain.com" using DNS. First, the client will issue a request to the ISP, asking for the address of the domain "subdomain.webscienceexampledomain.com".
+
+The ISP will forward that request to the root server with IP 25.8.2.1 that exists under (Router3). (Router3) as a DNS will know that it doesn't have that domain in its networks. Therefore it will send back a response to the ISP, in that response will be the IP address of the DNS that the ISP should send the request to, which is now 156.3.20.2
+
+The ISP sends a request to the "webscienceexampledomain.com" with the IP 156.3.20.2, which is under (Router2). (Router2) as a DNS will be asked for the address of the domain "subdomain.webscienceexampledomain.com". (Router2) (DNS) knows that this domain lies in its network and therefore is able to resolve its IP address. (Router2) will send back a response to the ISP with the IP address of the requested domain.
+
+The ISP sends back a response to the client 67.4.5.2 with the IP address of the domain "subdomain.webscienceexampledomain.com"
+=================================================================================================================================

@@ -1,0 +1,61 @@
+As client (67.4.5.2) wants to resolve the domain "subdomain.webscienceexampledomain.com" using DNS, \\
+Let us assume 67.4.5.2 is the ISP which process the DNS query for the client. \\
+67.4.5.2 - Creates IP packet where, \\
+Source - 67.4.5.2 \\
+Destination: 26.155.36.7 (IP of the name server with which the sub-domain, client requested, is handled). \\ \\
+
+1. Getting  IP address for the name server of  webscienceexampledomain.com: \\
+For a DNS request, the IP packet will be sent to the root name server first. \\
+Here, the IP for root name server is 25.8.2.1 \\
+From 67.4.5.2, \\
+1.1. Next hop: 67.68.3.1 in router 1 \\
+1.2. Next hop (for any destination in 25.0.0.0 network from router 1): 88.6.32.1  in router 3 \\
+1.3. Next hop (for any destination in 25.0.0.0 network from router 3): 25.03.1.2 in router 3 \\
+1.4. From, 25.03.1.2 it can reach to any IP of 25.0.0.0 network, in our case 25.8.2.1 \\
+As it is not the final destination, the client is looking for,
+it will send another IP packet back to 67.4.5.2 with the information of IP address of the name server for 
+the domain "webscienceexampledomain.com" which is 156.3.20.2 \\ \\
+
+1.5. Nex hop: 25.03.1.2 in router 3\\
+1.6. Next hop (for any destination in 67.0.0.0 network from router 3): 88.4.32.6 in router 1 \\
+1.7. Next hop (for any destination in 67.0.0.0 network from router 1): 67.68.3.1 in router 1 \\
+1.8. From, 67.68.3.1 it can reach to any IP of 67.0.0.0 network, in our case 67.4.5.2 \\ \\
+
+
+2. Getting  IP address for the name server of  subdomain.webscienceexampledomain.com: \\
+Now the source knows the IP address of the name server for the domain webscienceexampledomain.com. \\
+So, a request will be sent to this IP address now (156.3.20.2). \\
+
+2.1. Next hop: 67.68.3.1 in router 1 \\
+2.2. Next hop (for any destination in 156.3.0.0 network from router 1): 88.6.32.1  in router 3 \\
+2.3. Next hop (for any destination in 156.3.0.0 network from router 3): 205.30.7.1  in router 2 \\
+2.4. Next hop (for any destination in 156.3.0.0 network from router 2): 156.3.0.6  in router 2 \\
+2.5. From, 156.3.0.6 it can reach to any IP of 156.3.0.0 network, in our case 156.3.20.2 \\
+As it is not the final destination, the client is looking for,
+it will send another IP packet back to 67.4.5.2 with the information of IP address of the name server for 
+the sub-domain "subdomain.webscienceexampledomain.com" which is 26.155.36.7 \\ \\
+
+2.6. Next hop: 156.3.0.6 in router 2
+2.7. Next hop (for any destination in 67.0.0.0 network from router 2): 141.71.20.1 in router 1 \\
+2.8. Next hop (for any destination in 67.0.0.0 network from router 1): 67.68.3.1 in router 1 \\
+2.9. From, 67.68.3.1 it can reach to any IP of 67.0.0.0 network, in our case 67.4.5.2 \\ \\
+	
+
+3. Sending request to the name server of  subdomain.webscienceexampledomain.com: \\
+Now the client (67.4.5.2) has the IP address of the name server of subdomain.webscienceexampledomain.com \\
+So, a request will be sent to this IP address now (26.155.36.7). \\
+
+3.1. Next hop: 67.68.3.1 in router 1 \\
+3.2. Next hop (for any destination in 26.0.0.0 network from router 1): 141.71.26.3  in router 2 \\
+3.3. Next hop (for any destination in 26.0.0.0 network from router 2): 26.3.2.1  in router 2 \\
+3.4. From, 26.3.2.1 it can reach to any IP of 156.3.0.0 network, in our case 26.155.36.7 \\
+
+This is the IP Address associated to the requested subdomain.webscienceexampledomain.com \\
+So, it will response back to the 67.4.5.2 (Client/ISP) with answer. \\
+
+3.5. Next hop: 26.3.2.1 in router 2 \\
+3.6. Next hop (for any destination in 67.0.0.0 network from router 2): 141.71.20.1 in router 1 \\
+3.7. Next hop (for any destination in 67.0.0.0 network from router 1): 67.68.3.1 in router 1 \\
+3.8. From, 67.68.3.1 it can reach to any IP of 67.0.0.0 network, in our case 67.4.5.2 \\ \\
+
+As we assumed that our ISP is 67.4.5.2 - it will response back the answer to our client that is 67.4.5.2.
