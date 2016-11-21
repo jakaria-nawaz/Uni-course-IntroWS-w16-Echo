@@ -1,4 +1,4 @@
-*.idea
+*.idea/
 *.aux
 *.bcf
 *.log
