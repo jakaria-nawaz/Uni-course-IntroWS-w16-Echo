@@ -2,8 +2,8 @@ import socket
 from urlparse import urlparse
 import os
 
-# url = 'http://west.uni-koblenz.de/en/studying/courses/ws1617/introduction-to-web-science'
-url = 'http://west.uni-koblenz.de/sites/default/files/styles/personen_bild/public/_IMG0076-Bearbeitet_03.jpg'
+url = 'http://west.uni-koblenz.de/en/studying/courses/ws1617/introduction-to-web-science'
+# url = 'http://west.uni-koblenz.de/sites/default/files/styles/personen_bild/public/_IMG0076-Bearbeitet_03.jpg'
 
 
 def separate_header(content):
