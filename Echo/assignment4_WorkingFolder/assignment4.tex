@@ -47,7 +47,7 @@ In this assignment we cover two topics: 1) \textbf{HTTP} \& 2) \textbf{Web Conte
 For all the assignment questions that require you to write code, make sure to include the code in the answer sheet, along with a separate python file. Where screen shots are required, please add them in the answers directly and not as separate files.\\ \\ 
 
 %Please mention your team Names here: 
-Team Name: XXXX
+Team Name: ECHO
 
 % ------------------------------------------------------------------------------
 
@@ -102,8 +102,68 @@ Content-Type: text/html; charset=utf-8
 The header will be printed and stored in index.php.header. The retrieved html document will be stored in index.php
 
 
+\textbf{Answer:} client.py
+\begin{lstlisting}
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Nov 22 16:25:10 2016
+
+@author: nawaz
+"""
+
+import socket
+from urlparse import urlparse
+import os
+
+url = 'http://west.uni-koblenz.de/en/studying/courses/ws1617/introduction-to-web-science'
+# url = 'http://west.uni-koblenz.de/sites/default/files/styles/personen_bild/public/_IMG0076-Bearbeitet_03.jpg'
 
 
+def separate_header(content):
+    header = content.split("\r\n\r\n")[0]
+    with open('index.php.header', 'wb+') as f:
+        f.write(header)
+    return header
+
+
+def receive_respone(path):
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    parsedurl = urlparse(path)
+    server_ip = (socket.gethostbyname(parsedurl.netloc), 80)
+    sock.connect(server_ip)
+    CRLF = '\r\n\r\n'
+
+    sock.send("GET {0} HTTP/1.0{1}".format(parsedurl.path, CRLF))
+
+    first_data = sock.recv(100)
+    if first_data.find('OK') != -1:
+
+        def recvall(sock1):
+            data = ""
+            part = None
+            while part != "":
+                part = sock1.recv(100000)
+                data += part
+            return data
+
+        all_content = first_data + recvall(sock)
+        hdr = separate_header(all_content)
+        # print hdr
+        if hdr.find('image') != -1:
+            with open(os.path.basename(parsedurl.path), 'wb+') as f:
+                f.write(all_content.split("\r\n\r\n")[1])
+        else:
+            with open('index.php', 'wb+') as f:
+                f.write(all_content)
+
+        return all_content
+    else:
+        print 'status is not OK'
+
+
+receive_respone(url)
+
+\end{lstlisting}
 
 
 % ------------------------------------------------------------------------------
@@ -130,7 +190,32 @@ Your program should
 \item In case you run problems with constructing urls from relative or absult file paths you can always check with your web browser how the url is dereferenced.
 \end{enumerate}
 
+\textbf{Answer:} downloadEverything.py
+\begin{lstlisting}
+import re
+from urlparse import urljoin
+from urlparse import urlparse
+from client import receive_respone
+srcs = []
 
+file1 = 'index.php'
+ur = 'http://west.uni-koblenz.de/en/studying/courses/ws1617/introduction-to-web-science'
+def download_everything(file_name, url):
+    with open(file_name, 'rb+') as f:
+        data = f.readlines()
+    for dat in data:
+        if re.search('<img ', dat):
+            for x in re.findall('src="(.*?)"', dat, re.DOTALL):
+                srcs.append(urljoin(url, x))
+    return srcs
+
+urls = download_everything(file1, ur)
+for url1 in urls:
+    print url1
+    parse = urlparse(url1)
+    receive_respone(url1)
+
+\end{lstlisting}
 
 % ------------------------------------------------------------------------------
 
