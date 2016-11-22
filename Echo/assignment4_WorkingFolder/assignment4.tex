@@ -1,0 +1,146 @@
+% Enable warnings about problematic code
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{WeSTassignment}
+
+% The lecture title, e.g. "Web Information Retrieval".
+\lecture{Introduction to Web Science}
+% The names of the lecturer and the instructor(s)
+\author{%
+  Prof. Dr.~Steffen~Staab\\{\normalsize\mailto{staab@uni-koblenz.de}} \and
+  Ren{\'e}~Pickhardt\\{\normalsize\mailto{rpickhardt@uni-koblenz.de}} \and
+   Korok~Sengupta\\{\normalsize\mailto{koroksengupta@uni-koblenz.de}}
+}
+% Assignment number.
+\assignmentnumber{4}
+% Institute of lecture.
+\institute{%
+  Institute of Web Science and Technologies\\%
+  Department of Computer Science\\%
+  University of Koblenz-Landau%
+}
+% Date until students should submit their solutions.
+\datesubmission{November 23, 2016, 10:00 a.m.}
+% Date on which the assignments will be discussed in the tutorial.
+\datetutorial{November 25, 2016, 12:00 p.m.}
+
+% Set langauge of text.
+\setdefaultlanguage[
+  variant = american, % Use American instead of Britsh English.
+]{english}
+
+% Specify bib file location.
+\addbibresource{bibliography.bib}
+
+% For left aligned centerd boxes
+% see http://tex.stackexchange.com/a/25591/75225
+\usepackage{varwidth}
+
+% ==============================================================================
+% Document
+
+\begin{document}
+
+\maketitle
+In this assignment we cover two topics: 1) \textbf{HTTP} \& 2) \textbf{Web Content} 
+
+For all the assignment questions that require you to write code, make sure to include the code in the answer sheet, along with a separate python file. Where screen shots are required, please add them in the answers directly and not as separate files.\\ \\ 
+
+%Please mention your team Names here: 
+Team Name: XXXX
+
+% ------------------------------------------------------------------------------
+
+\section{Implementing a simplified HTTP GET Request (15 Points)}
+The goal of this exercise is to review the hyptertext transfer protocol and gain a better understanding of how it works.
+
+Your task is to use the python programming language to create an HTTP client (httpclient.py) that takes a URL as a command line argument and is able to download an arbitrary file from the World Wide Web and store it on your hard drive (in the same directory as your python code is running). The program should also print out the complete HTTP header of the response and store the header in a seperated file. 
+
+Your programm should only use the socket library so that you can open a TCP socket and and sys library to do command line parsing. You can either use urlparse lib or your code from assignment 3 in order to process the url which should be retrieved.
+
+Your programm should be able to sucessfully download at least the following files: 
+\begin {enumerate}
+\item http://west.uni-koblenz.de/en/studying/courses/ws1617/introduction-to-web-science
+\item http://west.uni-koblenz.de/sites/default/files/styles/personen\_bild/public/\_IMG0076-Bearbeitet\_03.jpg
+\end{enumerate}
+
+\textbf{Use of libraries like \texttt{httplib, urllib}, etc are not allowed in this task.}
+
+\subsection{Hints:}
+There will be quite some challenges in order to finnish the task
+\begin{itemize}
+\item Your program only has to be able to process HTTP-responses with status 200 OK.
+\item Make sure you receive the full response from your TCP socket. (create a function handling this task)
+\item Sperated the HTTP header from the body (again create a function to do this)
+\item If a binary file is requested make sure it is not stored in a corrupted way
+\end{itemize}
+
+
+\subsection{Example}
+\begin{lstlisting}
+python httpclient.py http://west.uni-koblenz.de/index.php
+
+HTTP/1.1 200 OK
+Date: Wed, 16 Nov 2016 13:19:19 GMT
+Server: Apache/2.4.7 (Ubuntu)
+X-Powered-By: PHP/5.5.9-1ubuntu4.20
+X-Drupal-Cache: HIT
+Etag: "1479302344-0"
+Content-Language: de
+X-Frame-Options: SAMEORIGIN
+X-UA-Compatible: IE=edge,chrome=1
+X-Generator: Drupal 7 (http://drupal.org)
+Link: <http://west.uni-koblenz.de/de>; rel="canonical",<http://west.uni-koblenz.de/de>; rel="shortlink"
+Cache-Control: public, max-age=0
+Last-Modified: Wed, 16 Nov 2016 13:19:04 GMT
+Expires: Sun, 19 Nov 1978 05:00:00 GMT
+Vary: Cookie,Accept-Encoding
+Connection: close
+Content-Type: text/html; charset=utf-8
+
+\end{lstlisting}
+The header will be printed and stored in index.php.header. The retrieved html document will be stored in index.php
+
+
+
+
+
+
+% ------------------------------------------------------------------------------
+
+\section{Download Everything (15 Points)}
+
+If you have successfully managed to solve the previous exercise you are able to download a web page from any url. Unfortionately in order to successfully render that very webpage the browser might need to download all the included images
+
+In this exercise you should create a python file (downloadEverything.py) which takes two arguments. The first argument should be a name of a locally stored html file. The second argument is the url from which this file was downloaded.
+
+Your program should 
+\begin{enumerate}
+\item be able to find a list of urls the images that need to be downloaded for successful rendering the html file.
+\item print the list of URLs to the console.
+\item call the program from task 1 (or if you couldn't complete task 1 you can call wget or use any python lib to fulfill the http request) to download all the necessary images and store them on your hard drive.
+\end{enumerate}
+
+\textbf{To finnish the task you are allowed to use the 're' library for regualar expressions and everything that you have been allowed to use in task 1.}
+
+\subsection{Hints}
+\begin{enumerate}
+\item If you couldn't finnish the last task you can simulate the relevant behavior by using the program wget which is available in almost any UNIX shell. 
+\item Some files mentioned in the html file might use relative or absolut paths and not fully qualified urls. Those should be fixed to the correct full urls. 
+\item In case you run problems with constructing urls from relative or absult file paths you can always check with your web browser how the url is dereferenced.
+\end{enumerate}
+
+
+
+% ------------------------------------------------------------------------------
+
+
+
+% ------------------------------------------------------------------------------
+
+
+
+
+\makefooter
+
+\end{document}
