@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title>Abusing the HTTP protocol - Example</title>
+</head>
+<body>
+	<h1>Display data from the Server</h1>
+	The following line changes on the servers command line
+	input: <br>
+	<span id="response" style="color:red">
+		This will be replaced by messages from the server
+	</span>
+
+<script>
+
+function httpGetAsync(theUrl, callbackFunc)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callbackFunc(xmlHttp.responseText);
+    }
+
+    xmlHttp.open("GET", theUrl, true);
+    xmlHttp.send(null);
+}
+
+function myCallBackFunc (returedDataFromServer){
+	document.getElementById("response").innerHTML = returedDataFromServer;
+	return true;
+}
+
+var currentURL=window.location.href;
+
+currentURL=currentURL+"?jscall";
+
+setInterval(function(){	
+	  httpGetAsync(currentURL, myCallBackFunc);
+}, 999);
+
+
+</script>
+
+
+
+</body>
+</html>

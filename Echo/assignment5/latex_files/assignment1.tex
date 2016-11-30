@@ -1,0 +1,367 @@
+% Enable warnings about problematic code
+\RequirePackage[l2tabu, orthodox]{nag}
+
+\documentclass{WeSTassignment}
+
+% The lecture title, e.g. "Web Information Retrieval".
+\lecture{Introduction to Web Science}
+% The names of the lecturer and the instructor(s)
+\author{%
+  Prof. Dr.~Steffen~Staab\\{\normalsize\mailto{staab@uni-koblenz.de}} \and
+  Ren{\'e}~Pickhardt\\{\normalsize\mailto{rpickhardt@uni-koblenz.de}} \and
+   Korok~Sengupta\\{\normalsize\mailto{koroksengupta@uni-koblenz.de}}
+}
+% Assignment number.
+\assignmentnumber{5}
+% Institute of lecture.
+\institute{%
+  Institute of Web Science and Technologies\\%
+  Department of Computer Science\\%
+  University of Koblenz-Landau%
+}
+% Date until students should submit their solutions.
+\datesubmission{November 30, 2016, 10:00 a.m.}
+% Date on which the assignments will be discussed in the tutorial.
+\datetutorial{December 2, 2016, 12:00 p.m.}
+
+% Set langauge of text.
+\setdefaultlanguage[
+  variant = american, % Use American instead of Britsh English.
+]{english}
+
+% Specify bib file location.
+\addbibresource{bibliography.bib}
+
+% For left aligned centerd boxes
+% see http://tex.stackexchange.com/a/25591/75225
+\usepackage{varwidth}
+
+% ==============================================================================
+% Document
+
+\begin{document}
+
+\maketitle
+Please look at the lessons 1) \textbf{Dynamic Web Content} \& 2) \textbf{How big is the Web?}
+
+For all the assignment questions that require you to write code, make sure to include the code in the answer sheet, along with a separate python file. Where screen shots are required, please add them in the answers directly and not as separate files.\\ \\ 
+
+%Please mention your team Names here: 
+Team Name: Echo
+
+% ------------------------------------------------------------------------------
+\section{Creative use of the Hyptertext Transfer Protocol (10 Points)}
+HTTP is a request response protocol. In that spirit a client opens a TCP socket to the server, makes a request, and the server replies with a response. The server will just listen on its open socket but cannot initiate a conversation with the client on its own. 
+
+However you might have seen some interactive websites which notify you as soon as something happens on the server. An example would be Twitter. Without the need for you to refresh the page (and thus triggering a new HTTP request) they let you know that there are new tweets available for you. In this exercise we want you to make sense of that behaviour and try to reproduce it by creative use of the HTTP protocol.
+
+Have a look at \texttt{server.py}\footnote{you could store the code from \url{http://blog.wachowicz.eu/?p=256} in a file called \texttt{server.py}} and \texttt{webclient.html} (which we provide). Extend both files in a way that after \texttt{webclient.html} is servered to the user the person controlling the server has the chance to make some input at its commandline. This input should then be send to the client and displayed automatically in the browser without requiring a reload. For that the user should not have to interact with the webpage any further.
+
+\subsection{webclient.html}
+\begin{lstlisting}
+<html>
+<head>
+	<title>Abusing the HTTP protocol - Example</title>
+</head>
+<body>
+	<h1>Display data from the Server</h1>
+	The following line changes on the servers command line
+	input: <br>
+	<span id="response" style="color:red">
+		This will be replaced by messages from the server
+	</span>
+</body>
+</html>
+\end{lstlisting}
+
+\subsection{Hints:}
+\begin{itemize}
+\item This exercise is more like a riddle. Try to focuse on how TCP sockets and HTTP work and how you could make use of that to achieve the expected behaviour. Once you have an idea the programming should be straight-forward. 
+\item The Javascript code that you need for this exercise was almost completely shown in one of the videos and is available on Wikiversity.
+\item In that sense we only ask for a "proof of concept" nothing that would be stable out in the wilde.
+  \begin{itemize}
+  	\item In particular, don't worry about making the server uses multithreading. It is ok to be blocking for the sake of this exercise.
+  \end{itemize}
+\item Without use of any additional libraries or AJAX framework we have been able to solve this with 19 lines of Javascript and 11 lines of Python code (we provide this information just as a way for you to estimate the complexity of the problem, don't worry about how many lines your solution uses).
+\end{itemize}
+
+\textbf{Answer:} 
+Code (index.html): \\ 
+\begin{lstlisting}
+<html>
+<head>
+	<title>Abusing the HTTP protocol - Example</title>
+</head>
+<body>
+	<h1>Display data from the Server</h1>
+	The following line changes on the servers command line
+	input: <br>
+	<span id="response" style="color:red">
+		This will be replaced by messages from the server
+	</span>
+
+<script>
+
+function httpGetAsync(theUrl, callbackFunc)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callbackFunc(xmlHttp.responseText);
+    }
+
+    xmlHttp.open("GET", theUrl, true);
+    xmlHttp.send(null);
+}
+
+function myCallBackFunc (returedDataFromServer){
+	document.getElementById("response").innerHTML = returedDataFromServer;
+	return true;
+}
+
+var currentURL=window.location.href;
+
+currentURL=currentURL+"?jscall";
+
+setInterval(function(){	
+	  httpGetAsync(currentURL, myCallBackFunc);
+}, 999);
+
+
+</script>
+
+
+
+</body>
+</html>
+
+\end{lstlisting}
+
+Code (simpleServer.py): \\ 
+\begin{lstlisting}
+#!/usr/bin/python
+
+import socket
+import signal
+import time
+
+class Server:
+ """ Class describing a simple HTTP server objects."""
+
+ def __init__(self, port = 80):
+     """ Constructor """
+     self.host = ''   # <-- works on all avaivable network interfaces
+     self.port = port
+     self.www_dir = 'www' # Directory where webpage files are stored
+
+ def activate_server(self):
+     """ Attempts to aquire the socket and launch the server """
+     self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+     self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+     try: # user provided in the __init__() port may be unavaivable
+         print("Launching HTTP server on ", self.host, ":",self.port)
+         self.socket.bind((self.host, self.port))
+
+     except Exception as e:
+         print ("Warning: Could not aquite port:",self.port,"\n")
+         print ("I will try a higher port")
+         # store to user provideed port locally for later (in case 8080 fails)
+         user_port = self.port
+         self.port = 8080
+
+         try:
+             print("Launching HTTP server on ", self.host, ":",self.port)
+             self.socket.bind((self.host, self.port))
+
+         except Exception as e:
+             print("ERROR: Failed to acquire sockets for ports ", user_port, " and 8080. ")
+             print("Try running the Server in a privileged user mode.")
+             self.shutdown()
+             import sys
+             sys.exit(1)
+
+     print ("Server successfully acquired the socket with port:", self.port)
+
+     self._wait_for_connections()
+
+ def shutdown(self):
+     """ Shut down the server """
+     try:
+         print("Shutting down the server")
+         s.socket.shutdown(socket.SHUT_RDWR)
+
+     except Exception as e:
+         print("Warning: could not shut down the socket. Maybe it was already closed?",e)
+
+ def _gen_headers(self,  code):
+     """ Generates HTTP response Headers. Ommits the first line! """
+
+     # determine response code
+     h = ''
+     if (code == 200):
+        h = 'HTTP/1.1 200 OK\n'
+     elif(code == 404):
+        h = 'HTTP/1.1 404 Not Found\n'
+
+     # write further headers
+     current_date = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())
+     h += 'Date: ' + current_date +'\n'
+     h += 'Server: Simple-Python-HTTP-Server\n'
+     h += 'Connection: close\n\n'
+
+     return h
+
+ def _wait_for_connections(self):
+     """ Main loop awaiting connections """
+     while True:
+         print ("Awaiting New connection")
+         self.socket.listen(10)
+
+         conn, addr = self.socket.accept()
+
+
+         print("Got connection from:", addr)
+
+
+         data = conn.recv(1024)
+         string = bytes.decode(data)
+
+
+
+         #determine request method  (HEAD and GET are supported)
+         request_method = string.split(' ')[0]
+
+
+        #Checking request
+
+         x= string.find("jscall")
+         if (x!=-1):
+                userData=input("Type your message : ")
+                conn.sendall(str.encode(userData))
+                # socket only send the data to client after closing the connection.
+                conn.close()
+
+                self.activate_server()
+                _wait_for_connections(self)
+
+    
+         if (request_method == 'GET') | (request_method == 'HEAD'):
+
+
+             # split on space "GET /file.html" -into-> ('GET','file.html',...)
+             file_requested = string.split(' ')
+             file_requested = file_requested[1]
+
+             #Check for URL arguments. Disregard them
+             file_requested = file_requested.split('?')[0]
+
+             if (file_requested == '/'):
+                 file_requested = '/index.html'
+
+             file_requested = self.www_dir + file_requested
+             print ("Serving web page [",file_requested,"]")
+
+             ## Load file content
+             try:
+                 file_handler = open(file_requested,'rb')
+                 if (request_method == 'GET'):  #only read the file when GET
+                     response_content = file_handler.read() # read file content
+                 file_handler.close()
+
+                 response_headers = self._gen_headers( 200)
+
+             except Exception as e:
+                 print ("Warning, file not found. Serving response code 404\n", e)
+                 response_headers = self._gen_headers( 404)
+
+                 if (request_method == 'GET'):
+                    response_content = b"<html><body><p>Error 404: File not found</p><p>Python HTTP server</p></body></html>"
+
+             server_response =  response_headers.encode()
+             if (request_method == 'GET'):
+
+                 server_response =  response_content
+
+
+             conn.send(server_response)
+
+
+             print ("Closing connection with client")
+             conn.close()
+
+         else:
+             print("Unknown HTTP request method:", request_method)
+
+def graceful_shutdown(sig, dummy):
+    """ This function shuts down the server. It's triggered
+    by SIGINT signal """
+    s.shutdown() #shut down the server
+    import sys
+    sys.exit(1)
+
+###########################################################
+# shut down on ctrl+c
+signal.signal(signal.SIGINT, graceful_shutdown)
+
+print ("Starting web server")
+s = Server(80)  # construct server object
+s.activate_server() # aquire the socket
+
+\end{lstlisting}
+% ------------------------------------------------------------------------------
+\section{Web Crawler (10 Points)}
+Your task in this exercise is to "crawl" the \texttt{Simple English Wikipedia}. In order to execute this task, we provide you with a mirror of the Simple English Wikipedia at \url{141.26.208.82}. 
+
+You can start crawling from \url{http://141.26.208.82/articles/g/e/r/Germany.html} and you can use the \texttt{urllib} or \texttt{doGetRequest} function from the last week's assignment.
+
+Given below is the strategy that you might adopt to complete this assignment: 
+\begin{enumerate}
+\item Download \url{http://141.26.208.82/articles/g/e/r/Germany.html} and store the page on your file system. 
+\item Open the file in python and extract the local links. (Links within the same domain.)
+\item Store the file to your file system.
+\item Follow all the links and repeat steps 1 to 3.
+\item Repeat step 4 until you have downloaded and saved all pages. 
+\end{enumerate}
+
+\subsection{Hints:}
+\begin{itemize}
+\item Before you start this exercise, please have a look at Exercise 3. 
+\item Make really sure your crawler doesn't follow external urls to domains other than \mbox{\url{http://141.26.208.82}}. In that case you would start crawling the entire web
+\item Expect the crawler to run about 60 Minutes if you start it from the university network. From home your runtime will most certainly be even longer.
+\item It might be useful for you to have some output on the crawlers commandline depicting which URL is currently being fetched and how many URLs have been fetched so far and how many are currently on the queue.
+\item You can (but don't have to) make use of breadth-first search.
+\item It probably makes sense to take over the full paths from the pages of the Simple English Wikipedia and use the same folder structure when you save the html documents.
+\item You can (but you don't have to) speed up the crawler significantly if you use multithreading. However you should not use more than 10 threads in order for our mirror of Simple English Wikipedia to stay alive. 
+\end{itemize}
+
+% ------------------------------------------------------------------------------
+
+\section{Web Crawl Statistics (10 Points)}
+
+If you have successfully completed the first exercise of this assignment, then please provide the following details. You may have to tweak your code in the above exercise for some of the results. 
+\subsection{Phase I}
+\begin{enumerate}
+\item Total Number of \emph{webpages} you found.
+\item Total number of links that you encountered in the complete process of crawling.
+\item Average and median number of links per web page.
+\item Create a \emph{histogram} showing the distribution of links on the crawled web pages. You can use a bin size of 5 and scale the axis from 0-150.
+\end{enumerate}
+
+\subsection{Phase II}
+\begin{enumerate}
+\item For every page that you have downloaded, count the number of internal links and external links. 
+\item Provide a \emph{scatter plot} with number of internal links on the X axis and number of external links on the Y axis.
+\end{enumerate}
+
+
+\textbf{Answer:} Code is uploaded but buggy and not complete.
+% ------------------------------------------------------------------------------
+
+
+
+
+
+\makefooter
+
+\end{document}
