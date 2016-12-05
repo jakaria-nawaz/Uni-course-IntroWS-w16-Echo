@@ -1,4 +1,5 @@
 TASK 2
+
 ---------------
 1.Observations:
 ===============
@@ -11,27 +12,29 @@ After observing the first 10-20 articles in the dataset:
 --------------------------
 2.Explain One observation:
 ==========================
-1. In this dataset, computer science terms occurances are so less.
+1. In this dataset, computer science terms occur so less.
 To find the average percentage of computer science terms occurance in all articles in the dataset is interesting because then we know how frequent it is to have
 computer science terms distributed in different kinds of article topics.
+
 -----------------------------------------------------------------------------------------
 3.Hypothesis FOR "In this dataset, each article has a specific topic"
 =========================================================================================
-1. Computer science related articles is 20% more common in the dataset than other topics.
-Falsible: Computer science related articles are less than 20% in the dataset
+1. Computer science words occurances are less than 30% in all articles in the dataset
+Falsible: Computer science words occurances are more than 40% in all articles of the dataset
 
-2. Computer science words occurances are more than 40% in all articles in the dataset
-Falsible: Computer science words occurances are less than 40% in all articles of the dataset
+2. Computer science words occurances are less than 30% in each article in terms of all words in each article
+Falsible: Computer science words occurances are more than 40% in each article in terms of all words in each article
 
-3. 
+3. Computer science related articles are less than 20% in the dataset than other topics.
+Falsible: Computer science related articles are more than 20% in the dataset
 
-----------------------
-4.Testable prediction:
-======================
-(a) The average percentage of the computer science terms in the dataset will be around (40%)
-The percentage that we are predicting of computer science terms in the dataset is around %40. In our case we have chosen to check the distribution of computer 
-science terms in the dataset, and that is justified by counting the computer science terms occurances in each article over the number of all words in the article.
-Then sum all the percentages.
+-----------------------------------------------------------------------------------------------------------------
+4.Testable prediction FOR "1. Computer science words occurances are less than 30% in all articles in the dataset"
+=================================================================================================================
+(a) The average percentage of the computer science terms in the dataset will be around (30%)
+The percentage that we are predicting of computer science terms in the dataset is around %30. In our case we have chosen to check the distribution of computer 
+science terms in the dataset, and that is justified by counting the number of computer science terms occurances in each article over the number of all words in 
+the article. Then sum all the percentages.
 
 -------
 5.Plan:

@@ -1,0 +1,4 @@
+TASK 3
+
+assignment6.py has some statistics to validate that the hypothesis of (Computer science words occurances are less than 30% in all articles in the dataset)
+since the average amount of computer science terms in all articles in the data set was : 0.0014686982286
