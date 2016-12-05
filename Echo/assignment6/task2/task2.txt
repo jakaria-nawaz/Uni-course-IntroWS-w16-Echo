@@ -2,25 +2,23 @@ TASK 2
 ---------------
 1.Observations:
 ===============
-1. In this dataset, each article has a specific topic
-// 1. This dataset contains more articles about specific topics than other topics
-2. This dataset contains more articles with positive affect than negative
-3. This dataset does not contain any non-english words
+After observing the first 10-20 articles in the dataset:
+1. In this dataset, computer science terms occurances are so less.
+2. In this dataset, each article has a specific topic
+3. This dataset contains more articles with positive affect than negative
+4. This dataset does not contain any non-english words
 
 --------------------------
 2.Explain One observation:
 ==========================
-1. In this dataset, each article has a specific topic
-To find the most noted topic in the simple english wikipedia and therefore know the most interesting topic in some cases.
-
+1. In this dataset, computer science terms occurances are so less.
+To find the average percentage of computer science terms occurance in all articles in the dataset is interesting because then we know how frequent it is to have
+computer science terms distributed in different kinds of article topics.
 -----------------------------------------------------------------------------------------
 3.Hypothesis FOR "In this dataset, each article has a specific topic"
 =========================================================================================
 1. Computer science related articles is 20% more common in the dataset than other topics.
-In our case we have chosen to check the distribution of computer science related topics in the dataset, and that is justified by
-counting the computer science terms occurances in each article.
-otherwise, anyone can change the keywords text file to find other topics.
-Falsible: Computer science related articles are less than 50% in the dataset
+Falsible: Computer science related articles are less than 20% in the dataset
 
 2. Computer science words occurances are more than 40% in all articles in the dataset
 Falsible: Computer science words occurances are less than 40% in all articles of the dataset
@@ -30,10 +28,10 @@ Falsible: Computer science words occurances are less than 40% in all articles of
 ----------------------
 4.Testable prediction:
 ======================
-(b) The average percentage of the computer science terms in the dataset will be around (40%)
-The percentage that we are predicting of computer science terms in the dataset is around %40
-In our case we have chosen to check the distribution of computer science terms in the dataset, and that is justified by
-counting the computer science terms occurances in each article over the number of all words in the article. Then sum all the percentages.
+(a) The average percentage of the computer science terms in the dataset will be around (40%)
+The percentage that we are predicting of computer science terms in the dataset is around %40. In our case we have chosen to check the distribution of computer 
+science terms in the dataset, and that is justified by counting the computer science terms occurances in each article over the number of all words in the article.
+Then sum all the percentages.
 
 -------
 5.Plan:
