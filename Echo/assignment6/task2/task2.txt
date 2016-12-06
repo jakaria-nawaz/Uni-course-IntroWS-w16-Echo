@@ -17,7 +17,7 @@ To find the average percentage of computer science terms occurance in all articl
 computer science terms distributed in different kinds of article topics.
 
 -----------------------------------------------------------------------------------------
-3.Hypothesis FOR "In this dataset, each article has a specific topic"
+3. Three Hypothesises FOR "In this dataset, computer science terms occurances are so less"
 =========================================================================================
 1. Computer science words occurances are less than 30% in all articles in the dataset
 Falsible: Computer science words occurances are more than 40% in all articles of the dataset
@@ -39,6 +39,6 @@ the article. Then sum all the percentages.
 -------
 5.Plan:
 =======
-1. We will find articles those contains keywords of computer science terms(computer.txt).
-2. Collect in both different dictionaries. 1) the amount of computer science words in each article. 2) the amount of articles about computer science
-3. First dictionary we will find the average of computer science words distributed in the dataset. Second dictionary we will find the average of computer science articles in the dataset
+1. We will go through each article, find the average amount of computer science terms (from the list in computer.txt) in each article.
+2. Collect in a dictionary the average amount of computer science words in each article, then sum up all percentages to find the average percentage of the occurances
+of computer science terms in all the dataset
