@@ -1,3 +1,4 @@
+#!python2
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -8,7 +9,7 @@ def readFile(x):
     for line in open(x):
         lines.append(line)
     return lines
-	
+
 computer = readFile('computer.txt')
 # using a sample of 100 articles only
 articles = readFile('articles-sample.txt')
@@ -52,4 +53,3 @@ plt.ylabel('Frequency of Computer Science terms')
 plt.xlabel('Articles names(numbers refer to line number)')
 plt.show()
 print("--- %s seconds ---" % (time.time() - start_time))
-
