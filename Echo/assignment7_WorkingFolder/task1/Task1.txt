@@ -78,5 +78,6 @@ answer:
 ------------------------------------------------------------------------------------------------------------
 1.3 Discussion
 ==============
+The results matched our expectations.
 In the calculation of the cosine similarity, if two documents share the same word then the value of the dot product of the two documents is calculated by multiplying the word (tfidf) in the first document by the same word (tfidf) in the second product other than that it'll be a zero field. Therefore, the documents that don't have words in common will end up having a zero dot product.
 If we are not using (tfidf), it can be explained as in the document will have a value of (1) in the field of that word and if the second product also has a value of (1) in the field of that word as will, the final result of the dot product won't be zero as in when one of those fields is of a value of (0); when the word is not a common word in both documents.
