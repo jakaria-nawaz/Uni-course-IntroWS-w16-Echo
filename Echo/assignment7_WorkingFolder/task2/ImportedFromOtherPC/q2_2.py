@@ -2,17 +2,31 @@ import random
 import os
 import sys
 import re
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 import operator
+from collections import Counter
+
+def wordF(fileName):
+    file=open(fileName,"r+", encoding="utf8")
+    wordcount={}
+    for word in file.read().split():
+        word = word.lower()
+        if word not in wordcount:
+            wordcount[word] = 1
+        else:
+            wordcount[word] += 1
+            #print (wordcount)
+    #for k,v in wordcount.items():
+        #print (k, v)
+    return wordcount
 
 def countFromFile(fileName):
     numberOfWords=0
     numberOfChar=0
     stat={}
-    with open(fileName, 'r') as f:
+    with open(fileName, 'r', encoding='utf8') as f:
         for contents in f:
-
             wordsList = contents.split()
             numberOfWords +=len(wordsList)
             for items in wordsList:
@@ -37,11 +51,44 @@ def generateText(tp1,cdfdata,n,newFileName):
                 #print((tp1[i][0]))
                 break
         count = count + 1
-    print(fullString)
+    #print(fullString)
     with open(newFileName, 'a') as out:
         out.write(fullString)
 
+def drawHistogramMulti(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq):
+    plt.gca().set_color_cycle(['blue', 'green', 'red'])
+    plt.plot(sortedMainDataFreq)
+    plt.plot(sortedZipDataFreq)
+    plt.plot(sortedUnipDataFreq)
+    plt.legend(['Main Data', 'Zip Generated', 'Unip Generated'], loc='upper right')
+    plt.title('Word Frequency Diagram')
+    plt.ylabel('Frequencies')
+    plt.xlabel('Wordrank')
+    plt.grid('on')
+    plt.yscale('log')
+    plt.xscale('log')
+    plt.show()
 
+def drawCDF(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq):
+    cumsumMain=np.cumsum(sortedMainDataFreq)
+    normedcumsumMain=[x/float(cumsumMain[-1]) for x in cumsumMain]
+    #wrank = {words[i]:i+1 for i in range(0,len(words))}
+
+    cumsumZip=np.cumsum(sortedZipDataFreq)
+    normedcumsumZip=[x/float(cumsumZip[-1]) for x in cumsumZip]
+
+    cumsumUnip=np.cumsum(sortedUnipDataFreq)
+    normedcumsumUnip=[x/float(cumsumUnip[-1]) for x in cumsumUnip]
+
+    #k=ks_2samp(cumsumMain,cumsumUnip)
+    #print("kolo: ",k)
+    #print(normedcumsum)
+
+    plt.plot(normedcumsumMain)
+    plt.plot(normedcumsumZip)
+    plt.plot(normedcumsumUnip)
+    plt.xscale('log')
+    plt.show()
 
 def main():
     stat = countFromFile("asam.txt")
@@ -81,8 +128,35 @@ def main():
 
 
     generateText(sorted_zifp,zifpCDFList,numberOfChar,"ziptext.txt")
-    print("\n\n")
+    #print("\n\n")
     generateText(sorted_unip,unipCDFList,numberOfChar,"uniptext.txt")
+
+    mainDataFreq = wordF('asam.txt')
+    zipDataFreq = wordF('ziptext.txt')
+    unipDataFreq = wordF('uniptext.txt')
+
+    list(mainDataFreq.values())
+
+    #print("Frequency of words in main data set:\n", mainDataFreq)
+    sortedMainDataFreq = list(mainDataFreq.values())
+    sortedMainDataFreq = sorted(sortedMainDataFreq, reverse=True)
+    #print("Frequency of words in main data set(values in list - sorted):\n", sortedMainDataFreq)
+    #drawHistogram(sortedMainDataFreq)
+
+    #print("\n\nFrequency of words in ZIP data set:\n", zipDataFreq)
+    sortedZipDataFreq = list(zipDataFreq.values())
+    sortedZipDataFreq = sorted(sortedZipDataFreq, reverse=True)
+    #print("Frequency of words in ZIP data set(values in list - sorted):\n", sortedZipDataFreq)
+    #drawHistogram(sortedZipDataFreq)
+
+    #print("\n\nFrequency of words in UNIP data set:\n", unipDataFreq)
+    sortedUnipDataFreq = list(unipDataFreq.values())
+    sortedUnipDataFreq = sorted(sortedUnipDataFreq, reverse=True)
+    #print("Frequency of words in UNIP data set(values in list - sorted):\n", sortedUnipDataFreq)
+    #drawHistogram(sortedUnipDataFreq)
+
+    drawHistogramMulti(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq)
+    drawCDF(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq)
 
 if __name__ == '__main__':
     main()
