@@ -17,12 +17,14 @@ def drawHistogram(sumDiceResult):
     plt.grid('on')
     plt.show()
 
+#http://stackoverflow.com/questions/3209362/how-to-plot-empirical-cdf-in-matplotlib-in-python
 def drawCDF(sumDiceResult):
     sorted = np.sort(sumDiceResult)
     print(sorted)
     yvals = np.arange(len(sorted))/float(len(sorted))
     plt.plot(sorted, yvals)
     plt.grid('on')
+    plt.plot((0, 12), (.5, .5))
     plt.show()
 
 # def drawCDF2(sumDiceResult):
