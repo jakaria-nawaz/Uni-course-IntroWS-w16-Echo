@@ -7,8 +7,8 @@ ToDo:
     2. roll two dices                       # done
     3. sum up both dices                   # done
     4. calc frequencies of dice sum        # done
-    5. plot histogram with frequencies
-    6. calc plot cdf
+    5. plot histogram with frequencies      # done
+    6. calc plot cdf                      # done
     7.1 median sum of two dice sides.
     7.2 mark point on plot
     8.1 probability of dice sum to be equal or less than 9. 
@@ -21,8 +21,11 @@ ToDo:
 import random
 import collections
 
+import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 import numpy as np
+import math
+
 
 #########################################
 # def dice() 
@@ -52,64 +55,113 @@ def rollDices(numberOfTimes):
 # 
 # 
 #########################################
-def plotHistogram():
-    rng = np.random.RandomState(10)  # deterministic random data
-    
-    a = np.hstack((rng.normal(size=1000),
-               rng.normal(loc=5, scale=2, size=1000)))
-    plt.hist(a, bins='auto')  # plt.hist passes it's arguments to np.histogram
-    plt.title("Histogram with 'auto' bins")
-    plt.show()
-'''
-def plotHistogram3(values, keys):
-    print(keys)
-    y_pos = np.arange(len(keys))
-    print(y_pos)
-    performance = [counter[k] for k in keys]
-    pefo = [for k in keys]
-    print(performance)
-    print(pefo)
+def plotHistogram(values, keys):
+    listo = keys
+    y_pos = np.arange(min(listo), max(listo)+1, 1)
+    performance = values
     plt.bar(y_pos, performance, align='center')
     plt.show()
 
-#def plotHistogram2(values):
-    #for val in values:
-       #print(val)
-    #plt.hist(a, bins='auto')  # plt.hist passes it's arguments to np.histogram
-    #plt.title("Histogram with 'auto' bins")
-    #plt.show()
-def plotHistogram2(values, keys):
-    # Counter data, counter is your counter object
-    keys = counter.keys()
-    y_pos = np.arange(len(keys))
-    # get the counts for each key, assuming the values are numerical
-    performance = [counter[k] for k in keys]
-    # not sure if you want this :S
-    error = np.random.rand(len(keys))
-    
-    plt.bar(y_pos, performance, xerr=error, align='center', alpha=0.4)
-    plt.yticks(y_pos, keys)
-    plt.xlabel('Counts per key')
-    plt.title('How fast do you want to go today?')
+
+
+#########################################
+# def cdf
+# 
+# 
+#########################################   
+def cdfPlot3(values,keys):
+    sorted_data = np.cumsum(values)   
+    y = np.arange(min(keys), max(keys)+1)
+    plt.plot(y, sorted_data)
     
     plt.show()
-'''
+ 
+def cdfPlot4(values,keys):
+    sorted_data = np.cumsum(values)   
+    markers_on = [0,1,2,3,4,5,6,7,8,9,10]
+    print(values)
+    print(keys)
+    
+    # draw a line at y=0.5 and x=0
+    x = keys
+    y = np.array([0.5,0.5,0.5,0.5,0.5,0.5,0.5, 0.5,0.5,0.5, 0.5])
+    
+ 
+    line = plt.plot(x,y)[0]
+    line.set_clip_on(False)
+    
+    # draw a line at y= .... and x= median
+    x2 = np.array([keys[5],keys[5],keys[5],keys[5],keys[5],keys[5],keys[5],keys[5],keys[5],keys[5],keys[5]])
+    y2 = np.array([0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0])
+    plt.plot(x2,y2)
+    #plt.plot(xs, ys, '-gD', markevery=markers_on)
+    y = np.arange(min(keys), max(keys)+1)
+    plt.plot(y, sorted_data, markevery=markers_on, marker='o')
+    plt.show()
+    sumX = 0
+    print("median")
+    print(sorted_data[5])
+
+    ## dist(x,y) = sqrt(x1^2 - y1^2) 
+def calcDistance(x1, y1, x2, y2):
+    distance = 0
+    sqrt = 0
+    distance = math.pow(x1 - x2, 2) + math.pow(y1 -y2, 2)
+    sqrt = math.sqrt(distance)
+    return sqrt    
+    
+    
 #################################################
 # Main
 #################################################    
-print("\n#\n")
+# roll the dice 100 times and create a list of values
 sumDiceList = rollDices(100)
-print("sumDiceList: " + str(sumDiceList))
 
-print("\n#\n")
+# create a directory (from sumDiceList) for number at keys and frequency at values
 counter=collections.Counter(sumDiceList)
-print("collections.Counter: " + str(counter))
 
+# Just check some values 
+print("\n#\n")
+print("sumDiceList: " + str(sumDiceList))
+print("\n#\n")
+print("collections.Counter: " + str(counter))
 print("\n#\n")
 print("counter.values : " + str(counter.values()))
-
 print("\n#\n")
 print("counter.keys : " + str(counter.keys()))
 
-#plotHistogram3(counter.values(), counter.keys())
-#plotHistogram2(counter.values)
+
+# save the elements from the frequency list in lists
+keys = list(counter.keys())
+values = list(counter.values())
+
+# norm the values via list comprehension
+normed = [i/sum(list(counter.values())) for i in list(counter.values())]
+
+###### Plot with standard values #####
+plotHistogram(values, keys)
+
+##### Plot with normalize values ########
+print("Normed values: " + str(normed))
+plotHistogram(normed, keys)
+
+
+######### Plot the cdf function ########
+cdfPlot3(normed, keys)
+cdfPlot4(normed, keys)
+
+sumDiceList2 = rollDices(100)
+counter2 = collections.Counter(sumDiceList2)
+keys2 = list(counter2.keys())
+values2 = list(counter2.keys())
+
+normed2 = [i/sum(values2) for i in values2]
+#print(normed2)
+
+tmp = 0
+y = 0
+print("distance per point")
+for x in normed:
+    tmp = calcDistance(normed[y], keys[y], normed2[y], keys2[y])
+    print("distance between point (" + str(y+1) + "): " + str(tmp))
+    y+=1
