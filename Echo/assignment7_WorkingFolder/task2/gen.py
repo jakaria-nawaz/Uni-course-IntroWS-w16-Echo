@@ -2,10 +2,11 @@ import random
 import os
 import sys
 import re
-import numpy
+import numpy as np
 import matplotlib.pyplot as plt
 import operator
 from collections import Counter
+
 
 def wordF(fileName):
     file=open(fileName,"r+", encoding="utf8")
@@ -51,7 +52,7 @@ def generateText(tp1,cdfdata,n,newFileName):
                 #print((tp1[i][0]))
                 break
         count = count + 1
-    print(fullString)
+    #print(fullString)
     with open(newFileName, 'a') as out:
         out.write(fullString)
 
@@ -71,15 +72,28 @@ def drawHistogramMulti(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq
 
 def drawCDF(sortedMainDataFreq, sortedZipDataFreq, sortedUnipDataFreq):
     cumsumMain=np.cumsum(sortedMainDataFreq)
+    #print(cumsumMain[0])
+    #print(type(cumsumMain))
     normedcumsumMain=[x/float(cumsumMain[-1]) for x in cumsumMain]
     #wrank = {words[i]:i+1 for i in range(0,len(words))}
+    #print(normedcumsumMain)
+    print(normedcumsumMain[-1])
 
     cumsumZip=np.cumsum(sortedZipDataFreq)
     normedcumsumZip=[x/float(cumsumZip[-1]) for x in cumsumZip]
+    print(normedcumsumZip[-1])
 
     cumsumUnip=np.cumsum(sortedUnipDataFreq)
     normedcumsumUnip=[x/float(cumsumUnip[-1]) for x in cumsumUnip]
+    print(normedcumsumUnip[-1])
 
+
+
+    #C = map(sub, normedcumsumMain, normedcumsumZip)
+    C = [a - b for a, b in zip(normedcumsumMain, normedcumsumZip)]
+    print(max(C))
+    D = [a - b for a, b in zip(normedcumsumMain, normedcumsumUnip)]
+    print(max(D))
     #k=ks_2samp(cumsumMain,cumsumUnip)
     #print("kolo: ",k)
     #print(normedcumsum)
@@ -128,7 +142,7 @@ def main():
 
 
     generateText(sorted_zifp,zifpCDFList,numberOfChar,"ziptext.txt")
-    print("\n\n")
+    #print("\n\n")
     generateText(sorted_unip,unipCDFList,numberOfChar,"uniptext.txt")
 
     mainDataFreq = wordF('asam.txt')
