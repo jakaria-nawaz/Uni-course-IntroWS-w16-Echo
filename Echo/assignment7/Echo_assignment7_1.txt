@@ -1,0 +1,70 @@
+1.1 Get a feeling for similarity as a human
+===========================================
+D1 and D2 are most similar set of two documents to each other between these three documents, because they have more common words in their documents than any other two documents.
+----------------------------------------------------------------
+1.2 Model the documents as vectors and use the cosine similarity
+================================================================
+1. How many base vectors would be needed to model the documents of this corpus?
+answer: 19 base vectors, for each unique word in the corpus
+----------------------------------------------------------------
+2. What does each dimension of the vector space stand for?
+answer: Each dimension represents each word in the corpus. The document is drawn in regards of the term frequency of that word in its document. For example, a dimension of w1 is there and the document vector (for example D1) uses the term frequency of w1 in its document which equals to 1. 
+----------------------------------------------------------------
+3. How many dimensions does the vector space have?
+answer: 19 dimensions
+----------------------------------------------------------------
+4. Create a table to map words of the documents to the base vectors.
+answer: words vectors
+																					
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	)	vector(w1) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	)	vector(w2) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	)	vector(w3) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	)	vector(w4) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	)	vector(w5) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	)	vector(w6) 
+(	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	)	vector(w7) 
+(	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	)	vector(w8) 
+(	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	)	vector(w9) 
+(	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	)	vector(w10) 
+(	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	)	vector(w11) 
+(	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	)	vector(w12) 
+(	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w13) 
+(	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w14) 
+(	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w15) 
+(	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w16) 
+(	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w17) 
+(	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w18) 
+(	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	)	vector(w19) 
+----------------------------------------------------------------------------------------------------------
+5. Use the notation and formulas from the lecture to represent the documents as document vectors in the word vector space. You can use the term frequency of the words as coefficients. You can / should omit the inverse document frequency.
+answer:
+D1 = w1,w2,w3,w4,w5,w6,w7
+D2 = w6,w7,w2,w8,w9,w10,w11,w4,w12
+D3 = w13,w14,w15,w16,w17,w18,w19
+using term frequency model:
+				w19	w18	w17	w16	w15	w14	w13	w12	w11	w10	w9	w8	w7	w6	w5	w4	w3	w2	w1
+vector(D1)	(	0	0	0	0	0	0	0	0	0	0	0	0	1	1	1	1	1	1	1	)
+vector(D2)	(	0	0	0	0	0	0	0	1	1	1	1	1	1	1	0	1	0	1	0	)
+vector(D3)	(	1	1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	)
+
+----------------------------------------------------------------------
+6. Calculate the cosine similarity between all three pairs of vectors.
+answer: using term frequency model: 
+length(vector(D1)) = sqrt((1^2)*7) = 2.64
+length(vector(D2)) = sqrt((1^2)*9) = 3
+length(vector(D3)) = sqrt((1^2)*7) = 2.64
+
+similarity(vector(D1), vector(D2)) = (4)/(2.64*3) = 0.50
+similarity(vector(D2), vector(D3)) = (0)/(3*2.64) = 0
+similarity(vector(D1), vector(D3)) = (0)/(2.64*2.64) = 0
+
+------------------------------------------------------------------------------------------------------------
+7. According to the cosine similarity which 2 documents are most similar according to the constructed model.
+answer:
+(D1 and D2) are the most similar set of two documents according to the cosine similarity. Other sets of two documents have the similarity of (0)
+------------------------------------------------------------------------------------------------------------
+1.3 Discussion
+==============
+The results matched our expectations.
+In the calculation of the cosine similarity, if two documents have a word in common then the value of the dot product of the two documents is calculated by multiplying the word frequency of that word in the first document by the word frequency of the same word in the second product (and that goes for all words in the document) other than that it'll be a zero field. Therefore, the documents that don't have words in common will end up having a zero dot product. Which will lead to a Zero similarity, when we divide it with the length of the vector.
+So basically, because document one and document two have four words in common we found a similarity value that is not zero. Just like we expected in the first exercise.
