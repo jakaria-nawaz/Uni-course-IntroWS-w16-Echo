@@ -10,7 +10,7 @@ df2 = store['df2']
 def make_outlinkset():
      return lambda x: map(lambda y: re.sub('[^a-zA-Z0-9\n\ ]', '', y.strip()), x)
 
-## a function to return the jaccard similarity for any two sets
+## a function to return the Jaccard similarity for any two sets
 def calcJaccardSimilarity(wordset1, wordset2):
     return len(set(wordset1).intersection(set(wordset2))) / float(len(set(wordset1).union(set(wordset2))))
 
