@@ -1,0 +1,23 @@
+Task 3
+------
+Here we have to calculate 3 different ranking depending on what these 3 different models give 
+result on a certain condition on a same set of data. 
+We can take different approach like calculate the text similarities or calculate based on intersections
+among the rankings. But after little study what has been found is little more reliable and easier
+approach for comparing the rankings, it is 'Set Based Measure'. This measure is used to compare 
+various rankings for the same object.
+Here what we are going to do is,
+1. Take a random article x.
+2. Take a set (y(100)) of 100 article, some from before the index and some from after the index of x.
+3. Compare each element from set y(100) with x.
+4. Sort the Jaccard, Cosine similarity and the graph with Jaccard value and take
+top 10 most similar articles for each similarty measure js(10), cs(10), jgs(10).
+5. Implement 'Set Based Measure' on these 3 different rankings. We will find if they are same or if different,
+how different are they. We will also find which of the 2 rankings are more similar.
+Here is a the reference where I found about this 'Set Based Measure': 
+
+After calculating this we will be able to answer the question asked in the task 1.3 (According to our choosen 
+methodology - Set Based Measure.).
+
+Task 4
+------
