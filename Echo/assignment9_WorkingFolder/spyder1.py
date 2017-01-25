@@ -39,7 +39,7 @@ def findDiameter(G):
             #print 'lenght: ',diameter,'\n'
             i = i+1
             #Calculated for 100 iteration because of huge run time
-            if i == 10000:
+            if i == 100:
                 break
         print 'Detail of subgraph',index,': \n','Set of paths: ', diameter, ', Diameter: ', max(diameter), '\n\n'
         #print 'Diameter in subgraph',index,': ', diameter

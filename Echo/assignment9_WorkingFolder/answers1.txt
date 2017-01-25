@@ -1,22 +1,25 @@
-Potential parts you could find in research paper abstracts:
-1. The background and the problem that is tackled in the research
-2. The used methodology in the research
-3. One to three precise research question that are answered in the research paper
-4. Giving the "Unique idea" or the solution
-5. Pointing the results
-6. A conclusion with a point of impact
+Potential parts you could find in research paper abstracts: \\
+\begin{enumerate}
+\item The background and the problem that is tackled in the research
+\item The used methodology in the research
+\item One to three precise research question that are answered in the research paper
+\item Giving the "Unique idea" or the solution
+\item Pointing the results
+\item A conclusion with a point of impact
+\end{enumerate}
 
-The potential parts marked from the given abstract:
-1. The background and the problem:
-Hit songs, books, and movies are many times more successful than average, suggesting that “the best” alternatives are qualitatively different from ``the rest''; yet experts routinely fail to predict which products will succeed.
-2. The used methodology:
-We investigated this paradox experimentally, by creating an artificial ``music
-market''
-3. One precise research question:
-14,341 participants downloaded previously unknown songs either with or without knowledge of previous participants’ choices.
-4. Unique idea:
-Increasing the strength of social influence increased both inequality and unpredictability of success.
-5. Results:
-The best songs rarely did poorly, and the worst rarely did well, but any other result was possible.
-6. Point of impact:
-Success was also only partly determined by quality
+The potential parts marked from the given abstract: \\
+\begin{enumerate}
+\item The background and the problem: \\
+Hit songs, books, and movies are many times more successful than average, suggesting that “the best” alternatives are qualitatively different from ``the rest''; yet experts routinely fail to predict which products will succeed. \\
+\item The used methodology: \\
+We investigated this paradox experimentally, by creating an artificial - music market \\
+\item One precise research question: \\
+14,341 participants downloaded previously unknown songs either with or without knowledge of previous participants’ choices. \\
+\item Unique idea: \\
+Increasing the strength of social influence increased both inequality and unpredictability of success. \\
+\item Results: \\
+The best songs rarely did poorly, and the worst rarely did well, but any other result was possible. \\
+\item Point of impact: \\
+Success was also only partly determined by quality \\
+\end{enumerate}
