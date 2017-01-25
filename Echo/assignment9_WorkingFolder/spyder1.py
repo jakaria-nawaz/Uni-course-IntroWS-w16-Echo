@@ -16,7 +16,7 @@ def maketuple(x, y):
     for i in range(len(y)):
         r.append((x, y[i]))
     return r
-    
+
 #add edges to the graph
 def makeGraph(df):
     Graph = nx.Graph()
@@ -24,18 +24,27 @@ def makeGraph(df):
         Graph.add_edges_from(maketuple(row[1], row[2]))
     print 'Graph is made..'
     return Graph
-    
+
 G = makeGraph(df2)
 
 #find the diameter of each sub graph
 def findDiameter(G):
     for index, graph in enumerate(G):
         diameter = set()
+        i = 0
         for node in graph:
             lenght = nx.single_source_dijkstra_path_length(graph, node)
+            #print 'lenght: ',lenght,'\n'
             diameter.add(lenght[max(lenght, key=lenght.get)])
-        print 'Diameter in subgraph',index, max(diameter)
-        
+            #print 'lenght: ',diameter,'\n'
+            i = i+1
+            #Calculated for 100 iteration because of huge run time
+            if i == 10000:
+                break
+        print 'Detail of subgraph',index,': \n','Set of paths: ', diameter, ', Diameter: ', max(diameter), '\n\n'
+        #print 'Diameter in subgraph',index,': ', diameter
+
+
 #if the graph is not connected make subgraphs
 if(nx.is_connected(G)):
     print 'Graph is connected'
@@ -44,4 +53,3 @@ else:
     print 'Graph is not connected'
     subgraphs = sorted(nx.connected_component_subgraphs(G), key=len, reverse=True)
     findDiameter(subgraphs)
-    

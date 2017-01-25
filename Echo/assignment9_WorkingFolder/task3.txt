@@ -1,0 +1,22 @@
+
+1. Probability for sharing meme will increase if the meme topic is related to profession/culture of the 
+agent. 
+- Determining the subjects of all memes do not have a proper methodology because not all of them has a
+#hashtag. Even if we consider only #hastag memes, it will not be possible to relate each meme with
+the profession or culture of the meme. Even determining agent's culture/profession will not always be 100% correct.
+
+2. An agent will share a meme of own political interest which is intentionly triggered by political/media
+entity.
+- This type of meme will have #hashtag as it is intentional. But determining agent's political interest is difficult.
+So there are some more variables to consider which are not included in the model or the part of the system.
+
+3. Probability of sharing meme of recent phenomena will be higher than older ones.
+- It conflicts with reality because defination of 'recent phenomena' and collection of data of recent phenomena is
+not defined. Considering the meme is given #hastag.
+
+4. An agent's real time personal incident will have some influence on the agent to share specific memes.
+- System can not track agent's real time personal incident in reality. So we can't model this real time incident.
+
+5. Probability of sharing meme's which is related to the agent is higher than any random meme.
+- 'Related to the agent' can mean many things. Also, if there is not #hastag in the meme it is not possible to be sure
+about the topic of the meme.
