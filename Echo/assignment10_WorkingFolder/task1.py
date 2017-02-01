@@ -45,6 +45,6 @@ from scipy.stats import rankdata
 plt.scatter(rankdata(sys.keys()),rankdata(sys.values()))
 plt.ylabel('Entropy')
 plt.xlabel('Rank')
-
+plt.show()
 # we have made the system entropy per each day by finding the hashtags that were tweeted on that date and then used the entropy function on them, and each summation is the daily entropy of the tweeted hashtags
 # the results are different because we have used a different entropy methodology than what is used in the author's plot
