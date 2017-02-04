@@ -1,0 +1,18 @@
+TASK 1
+In the videos about online advertisement, you learned about the three different payment methods for online advertisement.
+==========================
+1. Name all three methods.
+	1. CRC (Cost Per Click)
+	2. CPM (Cost Per Mille)
+	3. CPA (Cost Per Acquisition)
+	
+2.Mention the advantages and disadvantages, for publisher and advertiser, of all the payment methods and explain them in your own words.
+	check table.xlsx
+	
+3.Provide real world examples for the three payment methods.
+	1. CRC (Google adWords, Pay Per Click Search Engine Advertising)
+		Advertisers pay for having their website on top of the search results for getting the attention of clicks on their ads
+	2. CPM (Television advertisements)
+		Advertisers pay for gaining a x1000 viewer for their ads
+	3. CPA (PeerFly affiliate ad network.)
+		Advertisers pay to get the target goal fulfilled.
