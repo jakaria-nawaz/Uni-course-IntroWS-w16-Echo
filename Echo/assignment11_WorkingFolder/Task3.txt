@@ -1,0 +1,14 @@
+TASK 3
+3 Online vs. TV Advertisement (10 points)
+=========================================
+1. Which of the three payment models is most similar to advertisement on TV (explain your choice and also why you think other models are not similar)?
+- The CPM is the most similar payment model to the advertisement on TV, since when advertising on the TV we can control how many viewers we are showing this ad to by advertising it many times, or on many channels or after/before a related topic.
+- Then comes the CPC model as a second choice, which can be similar if we consider the Cost Per Call method; meaning that if we show a marketing ad with a telephone number, the goal would be getting the viewers to call this telephone.
+- Then the CPA which can be similar to CPC interpretation but instead of only calling the ad telephone, the consumers have to successfully fulfill the target goal (which could be for example to buy the product and was showing in the TV ad)
+
+2. What do you think are the most important advantages of online advertisement compared to advertisement on TV (highlight 5 advantages and explain each of them)?
+	1. Analytical reports: tracking the ads and the popularity of them, click rates is a major advantage of the online advertisement, since a lot of data analytics can be applied on such measurements. Which will bring more benefits to the business of the advertiser, when they are able to interpret those reports and gain more understanding on how and what they should advertise.
+	2. Reaching more viewers: if something is online, the chances of it reaching more viewers is very high (if it was successfully marketed) and more than TV ads, since the whole world is almost always online and not sitting behind the TV screens.
+	3. One click away: Online advertisements offer a one-click-away from getting to the store, hence consumers can buy the wanted products or get the service they want easily while being online. Whereas the TV ad will invite the consumers to the store or show a link to their websites which they have to copy/write down... too much effort spent to get the point.
+	4. Better business strategy: where consumers can not only get to the advertised item/service but can check the whole store once they click on the online ad. TV ads can basically show one item/service and focus on it in each ad, and will require the consumer to visit the store (physical or virtual) to get to other items/services.
+	5. More user interactive: online advertisements are more user interactive than TV ads. In some online advertisements, the consumer can actually enter some text or move something in the ad if they're interested. Therefore, it brings better interaction with the consumers than the TV ads.
